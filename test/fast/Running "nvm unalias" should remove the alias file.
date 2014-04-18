@@ -2,5 +2,5 @@
 
 echo v0.1.2 > ../../alias/test
 . ../../nvme.sh
-nvm unalias test
+nvme unalias test
 ! [ -e ../../alias/test ]
