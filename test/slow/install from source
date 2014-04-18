@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+. ../../nvme.sh
+
+VERSION=v0.10.26
+
+# Remove the stuff we're clobbering.
+[ -e ../../$VERSION ] && rm -R ../../$VERSION
+
+# Install from source
+nvme install -s $VERSION
+
+# Check
+[ -d ../../$VERSION ]
+nvme run $VERSION --version | grep $VERSION

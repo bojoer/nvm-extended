@@ -1,0 +1,14 @@
+#!/bin/sh
+
+mkdir -p ../../v0.2.3
+
+die () { echo $@ ; exit 1; }
+
+[ `expr $PATH : ".*v0.2.3/.*/bin"` = 0 ] || echo "WARNING: Unexpectedly found v0.2.3 already active" >&2
+
+. ../../nvme.sh
+nvme use v0.2.3 &&
+[ `expr $PATH : ".*v0.2.3/.*/bin"` != 0 ] || die "Failed to activate v0.2.3"
+
+nvme deactivate &&
+[ `expr $PATH : ".*v0.2.3/.*/bin"` = 0 ] || die "Failed to deactivate v0.2.3"

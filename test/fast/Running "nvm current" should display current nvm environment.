@@ -1,0 +1,6 @@
+#!/bin/sh
+
+die () { echo $@ ; exit 1; }
+
+. ../../nvme.sh
+[ "$(nvme current)" = "$(node -v)" ] || die "Failed to find current version"

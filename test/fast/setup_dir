@@ -1,0 +1,13 @@
+#!/bin/sh
+
+(
+  cd ../..
+
+  # Back up
+
+  mkdir -p bak
+  for SRC in v* src alias; do
+    [ -e "$SRC" ] && mv "$SRC" bak
+  done
+  true
+)

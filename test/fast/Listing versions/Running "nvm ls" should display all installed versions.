@@ -1,0 +1,18 @@
+#!/bin/sh
+
+. ../../../nvme.sh
+
+mkdir ../../../v0.0.1
+mkdir ../../../v0.0.3
+mkdir ../../../v0.0.9
+mkdir ../../../v0.3.1
+mkdir ../../../v0.3.3
+mkdir ../../../v0.3.9
+
+# The result should contain the version numbers.
+nvme ls | grep v0.0.1 &&
+nvme ls | grep v0.0.3 &&
+nvme ls | grep v0.0.9 &&
+nvme ls | grep v0.3.1 &&
+nvme ls | grep v0.3.3 &&
+nvme ls | grep v0.3.9

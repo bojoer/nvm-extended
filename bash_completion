@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+
+# bash completion for Node Version Manager Extended (NVME)
+
+__nvme_generate_completion()
+{
+  declare current_word
+  current_word="${COMP_WORDS[COMP_CWORD]}"
+  COMPREPLY=($(compgen -W "$1" -- "$current_word"))
+  return 0
+}
+
+__nvme_commands ()
+{
+  declare current_word
+  declare command
+
+  current_word="${COMP_WORDS[COMP_CWORD]}"
+
+  COMMANDS='\
+    help install uninstall use run\
+    ls ls-remote list list-remote deactivate\
+    alias unalias copy-packages clear-cache version'
+
+    if [ ${#COMP_WORDS[@]} == 4 ]; then
+
+      command="${COMP_WORDS[COMP_CWORD-2]}"
+      case "${command}" in
+      alias)  __nvme_installed_nodes ;;
+      esac
+
+    else
+
+      case "${current_word}" in
+      -*)     __nvme_options ;;
+      *)      __nvme_generate_completion "$COMMANDS" ;;
+      esac
+
+    fi
+}
+
+__nvme_options ()
+{
+  OPTIONS=''
+  __nvme_generate_completion "$OPTIONS"
+}
+
+__nvme_installed_nodes ()
+{
+  __nvme_generate_completion "$(nvme_ls) $(__nvme_aliases)"
+}
+
+__nvme_aliases ()
+{
+  declare aliases
+  aliases=""
+  if [ -d $nvme_DIR/alias ]; then
+    aliases="`cd $nvme_DIR/alias && ls`"
+  fi
+  echo "${aliases}"
+}
+
+__nvme_alias ()
+{
+  __nvme_generate_completion "$(__nvme_aliases)"
+}
+
+__nvme ()
+{
+  declare previous_word
+  previous_word="${COMP_WORDS[COMP_CWORD-1]}"
+
+  case "$previous_word" in
+  use|run|ls|list|uninstall) __nvme_installed_nodes ;;
+  alias|unalias)  __nvme_alias ;;
+  *)              __nvme_commands ;;
+  esac
+
+  return 0
+}
+
+# complete is a bash builtin, but recent versions of ZSH come with a function 
+# called bashcompinit that will create a complete in ZSH. If the user is in 
+# ZSH, load and run bashcompinit before calling the complete function.
+if [[ -n ${ZSH_VERSION-} ]]; then
+	autoload -U +X bashcompinit && bashcompinit
+fi
+
+complete -o default -o nospace -F __nvme nvme
+

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+DIR="$(command cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+source "$DIR/nvme.sh"
+
+if [ ! "$NODE_VERSION" ]; then
+  echo 'NODE_VERSION not set'
+  exit 1
+fi
+
+nvme use $NODE_VERSION
+
+exec $@
+

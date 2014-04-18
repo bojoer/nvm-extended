@@ -1,0 +1,35 @@
+{
+  "name": "nvm-extended",
+  "version": "0.1.0",
+  "description": "Node Version Manager Extended - Bash script for managing multiple active Node.js versions, included NPM @ version of Node.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "urchin test",
+    "test/fast": "urchin -f test/fast",
+    "test/slow": "urchin -f test/slow"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bojoer/nvm-extended.git"
+  },
+  "keywords": [
+    "nvm",
+    "node",
+	"npm",
+    "version",
+    "manager",
+	"extended"
+  ],
+  "author": "Joeri Boudewijns <bojoer@icloud.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bojoer/nvm-extended/issues"
+  },
+  "homepage": "https://github.com/bojoer/nvm-extended",
+  "devDependencies": {
+    "urchin": "~0.0.2"
+  }
+}
+

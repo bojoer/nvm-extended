@@ -1,0 +1,4 @@
+#!/bin/sh
+
+. ../../../nvme.sh
+[ $(nvme alias test1 | wc -l) = '2' ]
