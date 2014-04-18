@@ -17,10 +17,10 @@
   "keywords": [
     "nvm",
     "node",
-	"npm",
+    "npm",
     "version",
     "manager",
-	"extended"
+    "extended"
   ],
   "author": "Joeri Boudewijns <bojoer@icloud.com>",
   "license": "MIT",
