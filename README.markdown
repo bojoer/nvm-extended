@@ -1,4 +1,4 @@
-# Node Version Manager [![Build Status](https://travis-ci.org/bojoer/nvme.svg?branch=master)](https://travis-ci.org/bojoer/nvm-extended)
+# Node Version Manager Extended [![Build Status](https://travis-ci.org/bojoer/nvm-extended.svg?branch=master)](https://travis-ci.org/bojoer/nvm-extended)
 
 ## Installation
 
