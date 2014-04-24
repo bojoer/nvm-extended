@@ -105,8 +105,8 @@ if [ -z "$PROFILE" ]; then
   fi
 fi
 
-SOURCE_STR="# This loads nvme in a shell *as a function*\r\n"
-SOURCE_STR.="[ -s \"$NVME_DIR/nvme.sh\" ] && source \"$NVME_DIR/nvme.sh\"\r\n"
+SOURCE_STR1="# This loads nvme in a shell *as a function*"
+SOURCE_STR2="[ -s \"$NVME_DIR/nvme.sh\" ] && source \"$NVME_DIR/nvme.sh\""
 
 if [ -z "$PROFILE" ] || [ ! -f "$PROFILE" ]; then
   if [ -z $PROFILE ]; then
@@ -127,12 +127,13 @@ else
   if ! grep -qc 'nvme.sh' $PROFILE; then
     echo "=> Appending source string to $PROFILE"
     echo "" >> "$PROFILE"
-    echo $SOURCE_STR >> "$PROFILE"
-	echo "=> There were no problems during installation so nvme command should work."
+    echo $SOURCE_STR1 >> "$PROFILE"
+    echo $SOURCE_STR2 >> "$PROFILE"
+	  echo "=> There were no problems during installation so nvme command should work."
   else
     echo "=> Source string already present in $PROFILE."
   fi
-  source $PROFILE
+  source "$PROFILE"
   echo "=> If it does not work try closing and reopening your shell"
   echo "   OR"
   echo "=> If the Source String was already present in $PROFILE:"

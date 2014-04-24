@@ -208,10 +208,10 @@ nvme() {
       echo "Usage:"
       echo "    nvme help                    Show this message"
       echo "    nvme --version               Print out the latest released version of nvme"
-      echo "    nvme install [-s] <version>  Download and install a <version>, [-s] from source"
+      echo "    nvme install [-s] <version>  Download and install a <version>, [-s] from source. Uses .nvmerc if available"
       echo "    nvme uninstall <version>     Uninstall a version"
-      echo "    nvme use <version>           Modify PATH to use <version>"
-      echo "    nvme run <version> [<args>]  Run <version> with <args> as arguments"
+      echo "    nvme use <version>           Modify PATH to use <version>. Uses .nvmerc if available"
+      echo "    nvme run <version> [<args>]  Run <version> with <args> as arguments. Uses .nvmerc if available for <version>"
       echo "    nvme current                 Display currently activated version"
       echo "    nvme ls                      List installed versions"
       echo "    nvme ls <version>            List versions matching a given description"
@@ -241,6 +241,8 @@ nvme() {
       local sum
       local tarball
       local nobinary
+      local version_not_provided=0
+      local provided_version
 
       if ! nvme_has "curl"; then
         echo 'NVM Extended Needs curl to proceed.' >&2;
@@ -248,8 +250,14 @@ nvme() {
       fi
 
       if [ $# -lt 2 ]; then
-        nvme help
-        return
+        version_not_provided=1
+        nvme_rc_version
+        if [ -z "$NVME_RC_VERSION" ]; then
+          echo "No version defined in .nvmerc file. Please create the file and make sure that there is a version number present!"
+          echo
+          nvme help
+          return
+        fi
       fi
 
       shift
@@ -264,9 +272,16 @@ nvme() {
         nobinary=1
       fi
 
-      [ -d "$NVME_DIR/$1" ] && echo "$1 is already installed." && return
+      provided_version=$1
+      if [ -z "$provided_version" ]; then
+        if [ $version_not_provided -ne 1 ]; then
+          nvme_rc_version
+        fi
+        provided_version="$NVME_RC_VERSION"
+      fi
+      [ -d "$NVME_DIR/$provided_version" ] && echo "$provided_version is already installed." && return
 
-      VERSION=`nvme_remote_version $1`
+      VERSION=`nvme_remote_version $provided_version`
       ADDITIONAL_PARAMETERS=''
 
       shift
@@ -461,12 +476,39 @@ nvme() {
       echo "Now using node $VERSION"
     ;;
     "run" )
+      local provided_version
+      local has_checked_nvmerc=0
       # run given version of node
-      if [ $# -lt 2 ]; then
-        nvme help
-        return
+      shift
+      if [ $# -lt 1 ]; then
+        nvme_rc_version && has_checked_nvmerc=1
+        if [ -n "$NVME_RC_VERSION" ]; then
+          VERSION=`nvme_version $NVME_RC_VERSION`
+        else
+          VERSION='N/A'
+        fi
+        if [ $VERSION = "N/A" ]; then
+          echo "The provided version in .nvmerc is not a valid or no longer an active version!"
+          echo
+          nvme help
+          return
+        fi
       fi
-      VERSION=`nvme_version $2`
+
+      provided_version=$1
+      if [ -n "$provided_version" ]; then
+        VERSION=`nvm_version $provided_version`
+        if [ $VERSION = "N/A" ]; then
+          provided_version=''
+          if [ $has_checked_nvmrc -ne 1 ]; then
+            nvm_rc_version && has_checked_nvmrc=1
+          fi
+          VERSION=`nvm_version $NVM_RC_VERSION`
+        else
+          shift
+        fi
+      fi
+
       if [ ! -d "$NVME_DIR/$VERSION" ]; then
         echo "$VERSION version is not installed yet"
         return;

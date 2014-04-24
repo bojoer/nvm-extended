@@ -5,3 +5,4 @@ before_script:
   - curl -o /tmp/urchin https://raw.github.com/scraperwiki/urchin/master/urchin && chmod +x /tmp/urchin
 script:
   - NVME_DIR=$TRAVIS_BUILD_DIR make URCHIN=/tmp/urchin test
+
