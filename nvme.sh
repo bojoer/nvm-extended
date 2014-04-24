@@ -557,7 +557,7 @@ nvme() {
         nvme_version $2
     ;;
     "--version" )
-        echo "nvme v0.4.0"
+        echo "nvme v0.1.0"
     ;;
     * )
       nvme help
