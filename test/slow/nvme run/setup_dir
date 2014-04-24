@@ -1,0 +1,8 @@
+#!/bin/sh
+
+. ../../../nvme.sh
+nvme install 0.10.7
+
+if [ -f ".nvmerc" ]; then
+  mv .nvmerc .nvmerc.bak
+fi

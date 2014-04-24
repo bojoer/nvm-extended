@@ -32,7 +32,7 @@ To activate nvme, you need to source it from your shell:
 
     source ~/.nvm-extended/nvme.sh OR . ~/.nvm-extended/nvme.sh
 
-I always add this line to my `~/.bashrc`, `~/.profile`, or `~/.zshrc` file to have it automatically sourced upon login.
+I always add this line to my `~/.bashrc`, `~/.bash_profile`, `~/.bash_profile` or `~/.zshrc` file to have it automatically sourced upon login.
 Often I also put in a line to use a specific version of node.
 
 ## Usage
@@ -117,7 +117,7 @@ To activate, you need to source `bash_completion`:
 
   	[ -r "$NVME_DIR/bash_completion" ] && . "$NVME_DIR/bash_completion"
 
-Put the above sourcing line just below the sourcing line for NVM Extended in your profile (`.bashrc`, `.bash_profile`).
+Put the above sourcing line just below the sourcing line for NVM Extended in your profile (`.bashrc`, `.bash_profile` or `.profile).
 
 ### Usage
 
@@ -162,3 +162,4 @@ on Arch Linux and other systems using python3 by default, before running *instal
 After the v0.8.6 release of Node.js, nvme tries to install from binary packages. But in some systems, the official binary packages don't work due to incompatibility of shared libs. In such cases, use `-s` option to force install from source:
 
     nvme install -s 0.8.6
+

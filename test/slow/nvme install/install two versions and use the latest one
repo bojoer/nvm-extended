@@ -1,0 +1,23 @@
+#!/bin/sh
+
+set -e
+. ../../../nvme.sh
+
+# Remove the stuff we're clobbering.
+[ -e ../../../v0.9.7 ] && rm -R ../../../v0.9.7
+[ -e ../../../v0.9.12 ] && rm -R ../../../v0.9.12
+
+# Install from binary
+nvme install 0.9.7
+nvme install 0.9.12
+
+# Check
+[ -d ../../../v0.9.7 ]
+[ -d ../../../v0.9.12 ]
+
+# Use the first one
+nvme use 0.9.7
+
+# Use the latest one
+nvme use 0.9
+node --version | grep v0.9.12

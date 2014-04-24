@@ -1,4 +1,4 @@
-language: bash
+language: c # defaults to ruby
 install:
   - sudo apt-get install ksh zsh -y
 before_script:

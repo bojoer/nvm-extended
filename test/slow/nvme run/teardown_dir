@@ -1,0 +1,10 @@
+#!/bin/sh
+
+. ../../../nvme.sh
+nvme uninstall v0.10.7
+
+rm .nvmerc
+
+if [ -f ".nvmerc.bak" ]; then
+  mv .nvmerc.bak .nvmerc
+fi
