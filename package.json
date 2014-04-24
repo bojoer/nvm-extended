@@ -1,5 +1,5 @@
 {
-  "name": "nvm-extended",
+  "name": "nvme",
   "version": "0.1.0",
   "description": "Node Version Manager Extended - Bash script for managing multiple active Node.js versions, included NPM @ version of Node.js",
   "directories": {

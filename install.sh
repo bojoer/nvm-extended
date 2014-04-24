@@ -8,7 +8,7 @@ has() {
 }
 
 if [ -z "$NVME_DIR" ]; then
-  NVME_DIR="$HOME/.nvm-extended"
+  NVME_DIR="$HOME/.nvme"
 fi
 
 if ! has "curl"; then
