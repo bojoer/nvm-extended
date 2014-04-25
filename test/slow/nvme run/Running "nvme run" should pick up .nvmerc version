@@ -5,7 +5,7 @@ die () { echo $@ ; exit 1; }
 
 . ../../../nvme.sh
 
-echo "0.10.7" > .nvmerc
+echo "v0.10.7" > .nvmerc
 [ "$(nvme run --version | tail -1)" = "v0.10.7" ] || die "`nvme run` failed to run with the .nvmerc version"
 
-[ "$(nvme run --version | head -1)" = "Found .nvmerc files with version <0.10.7>" ] || die "`nvme run` failed to print out the \"found in .nvmerc\" message"
+[ "$(nvme run --version | head -1)" = "Found .nvmerc files with version <v0.10.7>" ] || die "`nvme run` failed to print out the \"found in .nvmerc\" message"
