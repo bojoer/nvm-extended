@@ -497,13 +497,13 @@ nvme() {
 
       provided_version=$1
       if [ -n "$provided_version" ]; then
-        VERSION=`nvm_version $provided_version`
+        VERSION=`nvme_version $provided_version`
         if [ $VERSION = "N/A" ]; then
           provided_version=''
           if [ $has_checked_nvmrc -ne 1 ]; then
             nvm_rc_version && has_checked_nvmrc=1
           fi
-          VERSION=`nvm_version $NVM_RC_VERSION`
+          VERSION=`nvme_version $NVM_RC_VERSION`
         else
           shift
         fi
