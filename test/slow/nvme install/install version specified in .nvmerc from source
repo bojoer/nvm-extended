@@ -9,7 +9,7 @@ NVME_TEST_VERSION=v0.10.7
 [ -e ../../../$NVME_TEST_VERSION ] && rm -R ../../../$NVME_TEST_VERSION
 
 # Install from binary
-cat "$NVME_TEST_VERSION" > .nvmerc
+echo "$NVME_TEST_VERSION" > .nvmerc
 
 nvme install -s
 
