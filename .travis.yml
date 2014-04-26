@@ -1,4 +1,4 @@
-language: c # defaults to ruby
+language: c # bash defaults to ruby and c will be faster
 install:
   - sudo apt-get install ksh zsh -y
 before_script:
